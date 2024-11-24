@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Penjualan Barang</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        nav {
+            background-color: #444;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            margin: 20px;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 30px;
+        }
+
+        .form-container, .product-list-container {
+            background-color: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container input, .form-container button {
+            padding: 10px;
+            margin: 5px 0;
+            width: 100%;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+        }
+
+        .product-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .product-item {
+            background-color: #fff;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-item h3 {
+            font-size: 18px;
+            margin: 0;
+        }
+
+        .product-item .price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+
+        .product-item button {
+            background-color: #28a745;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .product-item button:hover {
+            background-color: #218838;
+        }
+
+        .cart {
+            background-color: white;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart h3 {
+            margin: 0;
+            font-size: 20px;
+            color: #333;
+        }
+
+        .cart ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .cart ul li {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+        }
+
+        .cart .total {
+            font-weight: bold;
+            font-size: 18px;
+            color: #e74c3c;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .action-btns button {
+            padding: 5px 10px;
+            margin: 2px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .action-btns button.details {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .action-btns button.delete {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .action-btns button.edit {
+            background-color: #ffc107;
+            color: white;
+        }
+
+        .action-btns button:hover {
+            opacity: 0.8;
+        }
+
+    </style>
+
+    <!-- SweetAlert2 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+
+<header>
+    <h1>Penjualan Barang</h1>
+</header>
+
+<nav>
+    <a href="javascript:void(0)" onclick="showHome()">Data Penjualan</a>
+    <a href="javascript:void(0)" onclick="showDatabase()">Database Barang</a>
+</nav>
+
+<!-- Halaman Data Penjualan (Halaman Utama) -->
+<div id="homePage">
+    <div class="container">
+        <h2>Daftar Barang</h2>
+        <ul class="product-list" id="salesList">
+            <!-- Produk akan ditampilkan di sini -->
+        </ul>
+
+        <!-- Keranjang Belanja -->
+        <div class="cart" id="cart">
+            <h3>Keranjang Belanja</h3>
+            <ul id="cartItems">
+                <!-- Daftar produk yang ada di keranjang -->
+            </ul>
+            <p class="total">Total: Rp <span id="totalPrice">0</span></p>
+            <button onclick="saveCart()">Simpan Keranjang</button>
+        </div>
+
+        <!-- Tabel Riwayat Penjualan -->
+        <h2>Riwayat Penjualan</h2>
+        <table id="salesHistory">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Tanggal</th>
+                    <th>Total Harga</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data penjualan yang disimpan akan tampil di sini -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Halaman Database Barang -->
+<div id="databasePage" style="display: none;">
+    <div class="container">
+        <h2>Tambah Barang</h2>
+        <div class="form-container">
+            <form id="productForm">
+                <input type="text" id="productName" placeholder="Nama Barang" required><br><br>
+                <input type="number" id="productPrice" placeholder="Harga Barang" required><br><br>
+                <button type="submit">Tambah</button>
+            </form>
+        </div>
+
+        <div class="product-list-container">
+            <h2>Daftar Barang</h2>
+            <ul class="product-list" id="productList">
+                <!-- Daftar barang akan tampil di sini -->
+            </ul>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2024 Penjualan Barang. Semua hak cipta dilindungi.</p>
+</footer>
+
+<script>
+    // Simpan data produk dalam array
+    let products = [];
+    let cart = [];
+    let salesHistory = [];
+    let saleId = 1;
+
+    // Fungsi untuk menampilkan halaman utama (Data Penjualan)
+    function showHome() {
+        document.getElementById('databasePage').style.display = 'none';  // Sembunyikan halaman database
+        document.getElementById('homePage').style.display = 'block';  // Tampilkan halaman utama
+
+        // Update daftar produk di halaman utama berdasarkan data di 'products'
+        updateSalesList();
+    }
+
+    // Fungsi untuk menampilkan halaman database barang
+    function showDatabase() {
+        document.getElementById('homePage').style.display = 'none';  // Sembunyikan halaman utama
+        document.getElementById('databasePage').style.display = 'block';  // Tampilkan halaman database
+    }
+
+    // Fungsi untuk menambahkan barang ke dalam daftar
+    document.getElementById('productForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const productName = document.getElementById('productName').value;
+        const productPrice = document.getElementById('productPrice').value;
+
+        // Menambahkan produk ke array 'products'
+        products.push({ name: productName, price: parseInt(productPrice) });
+
+        // Reset form setelah menambahkan produk
+        document.getElementById('productForm').reset();
+
+        // Update daftar barang di halaman database
+        updateProductList();
+
+        // Jika kita kembali ke halaman utama, update daftar barang di sana juga
+        if (document.getElementById('homePage').style.display === 'block') {
+            updateSalesList();
+        }
+    });
+
+    // Fungsi untuk memperbarui daftar produk di halaman database
+    function updateProductList() {
+        const productList = document.getElementById('productList');
+        productList.innerHTML = '';  // Clear daftar barang
+
+        // Menampilkan daftar produk dari array 'products'
+        products.forEach((product, index) => {
+            const newProductItem = document.createElement('li');
+            newProductItem.classList.add('product-item');
+            newProductItem.innerHTML = `
+                <h3>${product.name}</h3>
+                <div>
+                    <span class="price">Rp ${product.price.toLocaleString()}</span>
+                    <div class="action-btns">
+                        <button class="edit" onclick="editProduct(${index})">Edit</button>
+                        <button class="delete" onclick="deleteProduct(${index})">Hapus</button>
+                    </div>
+                </div>
+            `;
+            productList.appendChild(newProductItem);
+        });
+    }
+
+    // Fungsi untuk mengedit produk menggunakan SweetAlert2
+    function editProduct(index) {
+        const product = products[index];
+
+        // SweetAlert2 Input Form untuk Edit Nama dan Harga Produk
+        Swal.fire({
+            title: 'Edit Produk',
+            html: `
+                <input id="swal-input-name" class="swal2-input" value="${product.name}" placeholder="Nama Barang">
+                <input id="swal-input-price" class="swal2-input" type="number" value="${product.price}" placeholder="Harga Barang">
+            `,
+            focusConfirm: false,
+            preConfirm: () => {
+                const name = document.getElementById('swal-input-name').value;
+                const price = document.getElementById('swal-input-price').value;
+
+                // Validasi input
+                if (!name || !price) {
+                    Swal.showValidationMessage('Nama dan harga harus diisi!');
+                    return false;
+                }
+
+                // Update produk di array 'products'
+                products[index] = {
+                    name: name,
+                    price: parseInt(price),
+                };
+
+                updateProductList();  // Update daftar produk setelah edit
+                return true;
+            }
+        });
+    }
+
+    // Fungsi untuk menghapus produk dengan SweetAlert2
+    function deleteProduct(index) {
+        Swal.fire({
+            title: 'Apakah Anda yakin?',
+            text: "Anda tidak dapat mengembalikan produk yang dihapus!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Hapus'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                products.splice(index, 1);  // Hapus produk dari array
+                updateProductList();  // Update daftar produk setelah penghapusan
+                Swal.fire('Dihapus!', 'Produk telah dihapus.', 'success');
+            }
+        });
+    }
+
+    // Fungsi untuk memperbarui daftar produk di halaman penjualan
+    function updateSalesList() {
+        const salesList = document.getElementById('salesList');
+        salesList.innerHTML = '';  // Clear daftar barang di halaman penjualan
+
+        // Menampilkan daftar produk dari array 'products'
+        products.forEach(product => {
+            const newProductItem = document.createElement('li');
+            newProductItem.classList.add('product-item');
+            newProductItem.innerHTML = `
+                <h3>${product.name}</h3>
+                <div>
+                    <span class="price">Rp ${product.price.toLocaleString()}</span>
+                    <button onclick="addToCart('${product.name}', ${product.price})">Tambah ke Keranjang</button>
+                </div>
+            `;
+            salesList.appendChild(newProductItem);
+        });
+    }
+
+    // Fungsi untuk menambahkan barang ke keranjang
+    function addToCart(productName, productPrice) {
+        let item = cart.find(cartItem => cartItem.name === productName);
+
+        if (item) {
+            item.quantity++;
+        } else {
+            cart.push({ name: productName, price: productPrice, quantity: 1 });
+        }
+
+        updateCart();
+        updateTotalPrice();
+    }
+
+    // Fungsi untuk memperbarui daftar barang di keranjang
+    function updateCart() {
+        const cartItems = document.getElementById('cartItems');
+        cartItems.innerHTML = '';
+
+        cart.forEach(item => {
+            const cartItem = document.createElement('li');
+            cartItem.innerHTML = `${item.name} - Rp ${item.price.toLocaleString()} x${item.quantity}`;
+            cartItems.appendChild(cartItem);
+        });
+    }
+
+    // Fungsi untuk menghitung dan memperbarui total harga di keranjang
+    function updateTotalPrice() {
+        const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0);
+        document.getElementById('totalPrice').textContent = totalPrice.toLocaleString();
+    }
+
+    // Fungsi untuk menyimpan keranjang dan menambahkannya ke riwayat penjualan
+    function saveCart() {
+        if (cart.length === 0) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Keranjang Kosong',
+                text: 'Tidak ada barang di keranjang untuk disimpan!'
+            });
+            return;
+        }
+
+        const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0);
+        const saleDate = new Date().toLocaleDateString("id-ID");
+
+        salesHistory.push({
+            no: saleId++,
+            date: saleDate,
+            totalPrice: totalPrice,
+            items: [...cart],
+        });
+
+        cart = [];
+        updateCart();
+        updateTotalPrice();
+        updateSalesHistory();
+    }
+
+    // Fungsi untuk memperbarui tabel riwayat penjualan
+    function updateSalesHistory() {
+        const salesHistoryTable = document.getElementById('salesHistory').getElementsByTagName('tbody')[0];
+        salesHistoryTable.innerHTML = '';
+
+        salesHistory.forEach(sale => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${sale.no}</td>
+                <td>${sale.date}</td>
+                <td>Rp ${sale.totalPrice.toLocaleString()}</td>
+                <td class="action-btns">
+                    <button class="details" onclick="viewSaleDetails(${sale.no})">Detail</button>
+                    <button class="delete" onclick="deleteSale(${sale.no})">Hapus</button>
+                </td>
+            `;
+            salesHistoryTable.appendChild(row);
+        });
+    }
+
+    // Fungsi untuk melihat detail transaksi
+    function viewSaleDetails(saleId) {
+        const sale = salesHistory.find(sale => sale.no === saleId);
+        Swal.fire({
+            title: `Detail Transaksi ${sale.no}`,
+            html: `
+                <strong>Tanggal:</strong> ${sale.date}<br>
+                <strong>Total Harga:</strong> Rp ${sale.totalPrice.toLocaleString()}<br>
+                <strong>Barang:</strong> ${sale.items.map(item => `${item.name} x${item.quantity}`).join(', ')}
+            `,
+            icon: 'info',
+        });
+    }
+
+    // Fungsi untuk menghapus transaksi dari riwayat dengan SweetAlert
+    function deleteSale(saleId) {
+        Swal.fire({
+            title: 'Apakah Anda yakin?',
+            text: "Anda tidak dapat mengembalikan transaksi yang dihapus!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Hapus'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                salesHistory = salesHistory.filter(sale => sale.no !== saleId);
+                updateSalesHistory();
+                Swal.fire('Dihapus!', 'Transaksi telah dihapus.', 'success');
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
