@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Penjualan Barang</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <title>AN Group</title>
     <style>
 body {
     font-family: Arial, sans-serif;
@@ -63,7 +66,7 @@ footer {
 .form-container input, .form-container button {
     padding: 10px;
     margin: 5px 0;
-    width: 100%;
+    width: 95%;
     border-radius: 5px;
     border: 1px solid #ddd;
     font-size: 16px;
@@ -194,7 +197,7 @@ th {
 }
 
 .action-btns button.details {
-    background-color: #007bff;
+    background-color: #3e8e41;
     color: white;
 }
 
@@ -204,7 +207,7 @@ th {
 }
 
 .action-btns button.edit {
-    background-color: #ffc107;
+    background-color: #3e8e41;
     color: white;
 }
 
@@ -214,7 +217,7 @@ th {
 
 /* Tombol Utama (Green & Gold) */
 button {
-    padding: 12px 24px; /* Ukuran tombol */
+    padding: 5px 10px; /* Ukuran tombol */
     font-size: 16px;
     font-weight: bold;
     color: white;
@@ -278,6 +281,204 @@ button:disabled {
     box-shadow: none; /* Hilangkan bayangan */
 }
 
+/* Media Queries untuk Smartphone */
+@media (max-width: 768px) {
+    body {
+        font-size: 14px; /* Ukuran font lebih kecil */
+    }
+
+    header {
+        font-size: 20px; /* Ukuran header lebih kecil */
+        padding: 10px;
+    }
+
+    nav {
+        padding: 10px;
+    }
+
+    nav a {
+        font-size: 16px; /* Ukuran teks navigasi lebih kecil */
+        margin: 0 10px; /* Jarak antar link navigasi lebih kecil */
+    }
+
+    .container {
+        margin: 10px;
+        padding: 10px;
+    }
+
+    .form-container, .product-list-container, .cart {
+        padding: 15px;
+        margin: 10px 0;
+    }
+
+    .form-container input, .form-container button {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+.product-item {
+    display: flex; /* Membuat elemen di dalamnya sejajar secara horizontal */
+    justify-content: space-between; /* Membuat jarak antara elemen */
+    align-items: center; /* Menjaga elemen tetap sejajar secara vertikal */
+    padding: 10px; /* Memberikan sedikit ruang di sekitar konten */
+    border: 1px solid #ddd; /* Garis pembatas di sekitar item */
+    margin-bottom: 10px; /* Memberikan jarak antar item */
+    border-radius: 5px; /* Membuat sudut item sedikit membulat */
+}
+
+.product-item h3 {
+    font-size: 16px; /* Ukuran teks yang lebih kecil */
+    margin: 0;
+    flex: 2; /* Memberikan porsi besar untuk nama produk */
+}
+
+.product-item .price {
+    font-size: 14px;
+    color: #b6935f;
+    flex: 1;
+    text-align: right;
+    margin-right: 20px;
+}
+
+.product-item button {
+    flex: 1; /* Memberikan ruang untuk tombol */
+    padding: 8px 10px; /* Ukuran tombol */
+    font-size: 14px;
+    background-color: #3e8e41;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.product-item button:hover {
+    background-color: #2c6a29;
+}
+
+
+    .cart ul li {
+        flex-direction: column; /* Susunan vertikal */
+        align-items: flex-start; /* Rata kiri */
+    }
+
+    table {
+        font-size: 12px; /* Ukuran font tabel lebih kecil */
+    }
+
+    th, td {
+        padding: 8px;
+    }
+
+    .action-btns button {
+        font-size: 12px; /* Ukuran tombol lebih kecil */
+        margin: 2px 0;
+    }
+
+    footer {
+        font-size: 12px; /* Ukuran footer lebih kecil */
+        padding: 10px;
+    }
+
+    /* Atur keranjang belanja untuk layar kecil */
+    #cart {
+        font-size: 14px;
+    }
+
+    /* Atur ulang tombol utama */
+    button {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
+
+    .swal2-popup {
+        width: 90% !important;  /* Mengurangi lebar popup untuk mobile */
+        font-size: 12px !important;  /* Ukuran font lebih kecil */
+        padding: 15px !important;  /* Padding lebih kecil */
+        overflow-x: hidden !important;  /* Menyembunyikan scroll horizontal */
+    }
+
+    .swal2-title {
+        font-size: 16px !important;  /* Ukuran judul lebih kecil */
+        margin-bottom: 10px !important;  /* Memberi jarak bawah pada judul */
+    }
+
+    .swal2-input {
+        font-size: 12px !important;  /* Ukuran font input lebih kecil */
+        padding: 10px !important;  /* Padding input lebih kecil */
+        box-sizing: border-box;  /* Memastikan padding dan border tidak menambah lebar input */
+        margin-bottom: 10px !important;  /* Jarak antar input */
+        overflow: hidden;  /* Menghindari input terlalu panjang */
+        text-overflow: ellipsis;  /* Menambahkan ellipsis jika teks terlalu panjang */
+        white-space: nowrap;  /* Menghindari teks meluas ke baris baru */
+    }
+
+    .swal2-actions {
+        display: flex;
+        flex-direction: column;  /* Tombol akan disusun secara vertikal */
+        gap: 8px !important;  /* Menambah jarak antar tombol */
+    }
+
+    .swal2-confirm, .swal2-cancel {
+        font-size: 12px !important;  /* Ukuran font tombol lebih kecil */
+        padding: 10px 15px !important;  /* Ukuran tombol lebih kecil */
+    }
+
+    .swal2-footer, .swal2-timer-progress-bar-container {
+        display: none !important;  /* Sembunyikan bagian footer dan progress bar */
+    }
+}
+
+.search-container {
+    margin-bottom: 20px;
+    text-align: right;
+}
+
+
+#searchInput:focus {
+    border-color: #3e8e41; /* Hijau medium */
+    box-shadow: 0 0 5px rgba(62, 142, 65, 0.5);
+}
+
+.search-container {
+    margin-bottom: 20px;
+    text-align: right;
+}
+
+#searchHomeInput, #searchInput {
+    display: flex;
+    padding: 10px;
+    width: 90%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+}
+
+#searchHomeInput:focus {
+    border-color: #3e8e41; /* Hijau medium */
+    box-shadow: 0 0 5px rgba(62, 142, 65, 0.5);
+}
+
+#dateFilter {
+    margin-top: 20px;
+    display: flex;
+    padding: 10px;
+    max-width: 50%;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+}
+
+#dateFilter:focus {
+    border-color: #3e8e41; /* Hijau medium */
+    box-shadow: 0 0 5px rgba(62, 142, 65, 0.5);
+}
+
+
 
 
     </style>
@@ -288,18 +489,21 @@ button:disabled {
 <body>
 
 <header>
-    <h1>Penjualan Barang</h1>
+    <h1>AN Group</h1>
 </header>
 
 <nav>
-    <a href="javascript:void(0)" onclick="showHome()">Data Penjualan</a>
-    <a href="javascript:void(0)" onclick="showDatabase()">Database Barang</a>
+    <a href="javascript:void(0)" onclick="showHome()">Beranda</a>
+    <a href="javascript:void(0)" onclick="showDatabase()">Database</a>
 </nav>
 
 <!-- Halaman Data Penjualan (Halaman Utama) -->
 <div id="homePage">
     <div class="container">
         <h2>Daftar Barang</h2>
+        <div class="search-container">
+    <input type="text" id="searchHomeInput" placeholder="Cari barang..." oninput="searchProductHome()">
+</div>
         <ul class="product-list" id="salesList">
             <!-- Produk akan ditampilkan di sini -->
         </ul>
@@ -311,18 +515,22 @@ button:disabled {
                 <!-- Daftar produk yang ada di keranjang -->
             </ul>
             <p class="total">Total: Rp <span id="totalPrice">0</span></p>
-            <button onclick="saveCart()">Simpan Keranjang</button>
+            <button onclick="saveCart()">Simpan</button>
         </div>
+
+        <div style="margin-bottom: 10px;">
+    <input type="text" id="dateFilter" placeholder="Pilih Tanggal" />
+</div>
+
 
         <!-- Tabel Riwayat Penjualan -->
         <h2>Riwayat Penjualan</h2>
         <table id="salesHistory">
             <thead>
                 <tr>
-                    <th>No.</th>
                     <th>Tanggal</th>
-                    <th>Total Harga</th>
-                    <th>Aksi</th>
+                    <th>Harga</th>
+                    <th>Ket</th>
                 </tr>
             </thead>
             <tbody>
@@ -344,8 +552,11 @@ button:disabled {
             </form>
         </div>
 
-        <div class="product-list-container">
-            <h2>Daftar Barang</h2>
+<div class="product-list-container">
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Cari barang..." oninput="searchProduct()">
+    </div>
+	<h2>Daftar Barang</h2>
             <ul class="product-list" id="productList">
                 <!-- Daftar barang akan tampil di sini -->
             </ul>
@@ -354,7 +565,7 @@ button:disabled {
 </div>
 
 <footer>
-    <p>&copy; 2024 Penjualan Barang. Semua hak cipta dilindungi.</p>
+    <p>&copy; 2024 AN Group. Semua hak cipta dilindungi.</p>
 </footer>
 
 <script>
@@ -401,28 +612,33 @@ button:disabled {
         }
     });
 
-    // Fungsi untuk memperbarui daftar produk di halaman database
-    function updateProductList() {
-        const productList = document.getElementById('productList');
-        productList.innerHTML = '';  // Clear daftar barang
+document.addEventListener('DOMContentLoaded', function () {
+    flatpickr('#dateFilter', {
+        dateFormat: "d/m/Y",  // Gunakan format DD/MM/YYYY
+        onChange: function(selectedDates, dateStr, instance) {
+            applyDateFilter(dateStr);  // Memanggil filter langsung setelah memilih tanggal
+        }
+    });
+});
 
-        // Menampilkan daftar produk dari array 'products'
-        products.forEach((product, index) => {
-            const newProductItem = document.createElement('li');
-            newProductItem.classList.add('product-item');
-            newProductItem.innerHTML = `
-                <h3>${product.name}</h3>
-                <div>
-                    <span class="price">Rp ${product.price.toLocaleString()}</span>
-                    <div class="action-btns">
-                        <button class="edit" onclick="editProduct(${index})">Edit</button>
-                        <button class="delete" onclick="deleteProduct(${index})">Hapus</button>
-                    </div>
-                </div>
-            `;
-            productList.appendChild(newProductItem);
-        });
-    }
+
+
+    // Fungsi untuk memperbarui daftar produk di halaman database
+function updateProductList() {
+    const productList = document.getElementById('productList');
+    productList.innerHTML = products.map((product, index) => `
+        <li class="product-item">
+            <span class="product-name">${product.name}</span>
+            <span class="price">Rp ${product.price.toLocaleString()}</span>
+            <div class="action-btns">
+                <button class="edit" onclick="editProduct(${index})">Edit</button>
+                <button class="delete" onclick="deleteProduct(${index})">Hapus</button>
+            </div>
+        </li>
+    `).join('');
+}
+
+
 
     // Fungsi untuk mengedit produk menggunakan SweetAlert2
     function editProduct(index) {
@@ -478,24 +694,19 @@ button:disabled {
     }
 
     // Fungsi untuk memperbarui daftar produk di halaman penjualan
-    function updateSalesList() {
-        const salesList = document.getElementById('salesList');
-        salesList.innerHTML = '';  // Clear daftar barang di halaman penjualan
+function updateSalesList() {
+    const salesList = document.getElementById('salesList');
+    salesList.innerHTML = products.map(product => `
+        <li class="product-item">
+            <h3>${product.name}</h3>
+            <div>
+                <span class="price">Rp ${product.price.toLocaleString()}</span>
+                <button onclick="addToCart('${product.name}', ${product.price})">Tambah</button>
+            </div>
+        </li>
+    `).join('');
+}
 
-        // Menampilkan daftar produk dari array 'products'
-        products.forEach(product => {
-            const newProductItem = document.createElement('li');
-            newProductItem.classList.add('product-item');
-            newProductItem.innerHTML = `
-                <h3>${product.name}</h3>
-                <div>
-                    <span class="price">Rp ${product.price.toLocaleString()}</span>
-                    <button onclick="addToCart('${product.name}', ${product.price})">Tambah ke Keranjang</button>
-                </div>
-            `;
-            salesList.appendChild(newProductItem);
-        });
-    }
 
     // Fungsi untuk menambahkan barang ke keranjang
     function addToCart(productName, productPrice) {
@@ -512,16 +723,13 @@ button:disabled {
     }
 
     // Fungsi untuk memperbarui daftar barang di keranjang
-    function updateCart() {
-        const cartItems = document.getElementById('cartItems');
-        cartItems.innerHTML = '';
+function updateCart() {
+    const cartItems = document.getElementById('cartItems');
+    cartItems.innerHTML = cart.map(item => 
+        `<li>${item.name} - Rp ${item.price.toLocaleString()} x${item.quantity}</li>`
+    ).join('');
+}
 
-        cart.forEach(item => {
-            const cartItem = document.createElement('li');
-            cartItem.innerHTML = `${item.name} - Rp ${item.price.toLocaleString()} x${item.quantity}`;
-            cartItems.appendChild(cartItem);
-        });
-    }
 
     // Fungsi untuk menghitung dan memperbarui total harga di keranjang
     function updateTotalPrice() {
@@ -556,39 +764,79 @@ button:disabled {
         updateSalesHistory();
     }
 
-    // Fungsi untuk memperbarui tabel riwayat penjualan
-    function updateSalesHistory() {
-        const salesHistoryTable = document.getElementById('salesHistory').getElementsByTagName('tbody')[0];
-        salesHistoryTable.innerHTML = '';
+function updateSalesHistory(filteredSalesHistory = salesHistory) {
+    const salesHistoryTable = document.getElementById('salesHistory').getElementsByTagName('tbody')[0];
+    salesHistoryTable.innerHTML = ''; // Clear the current table rows
 
-        salesHistory.forEach(sale => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${sale.no}</td>
-                <td>${sale.date}</td>
-                <td>Rp ${sale.totalPrice.toLocaleString()}</td>
-                <td class="action-btns">
-                    <button class="details" onclick="viewSaleDetails(${sale.no})">Detail</button>
-                    <button class="delete" onclick="deleteSale(${sale.no})">Hapus</button>
-                </td>
-            `;
-            salesHistoryTable.appendChild(row);
-        });
-    }
+    // Menghitung total keseluruhan penjualan berdasarkan filteredSalesHistory
+    const totalSales = filteredSalesHistory.reduce((total, sale) => total + sale.totalPrice, 0);
+
+    // Menampilkan riwayat penjualan
+    filteredSalesHistory.forEach(sale => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${sale.date}</td>
+            <td>Rp ${sale.totalPrice.toLocaleString()}</td>
+            <td class="action-btns">
+                <button class="details" onclick="viewSaleDetails(${sale.no})">Detail</button>
+                <button class="delete" onclick="deleteSale(${sale.no})">Hapus</button>
+            </td>
+        `;
+        salesHistoryTable.appendChild(row);
+    });
+
+    // Menambahkan total keseluruhan di bawah tabel
+    const totalRow = document.createElement('tr');
+    totalRow.innerHTML = `
+        <td colspan="2" style="text-align: right;"><strong>Total Keseluruhan</strong></td>
+        <td><strong>Rp ${totalSales.toLocaleString()}</strong></td>
+    `;
+    salesHistoryTable.appendChild(totalRow);
+}
+
+function applyDateFilter(selectedDate) {
+    const filteredSalesHistory = selectedDate === '' 
+        ? salesHistory 
+        : salesHistory.filter(sale => sale.date === selectedDate);
+
+    // Update the sales history table based on the filtered sales history
+    updateSalesHistory(filteredSalesHistory);
+}
+
 
     // Fungsi untuk melihat detail transaksi
-    function viewSaleDetails(saleId) {
-        const sale = salesHistory.find(sale => sale.no === saleId);
-        Swal.fire({
-            title: `Detail Transaksi ${sale.no}`,
-            html: `
-                <strong>Tanggal:</strong> ${sale.date}<br>
-                <strong>Total Harga:</strong> Rp ${sale.totalPrice.toLocaleString()}<br>
-                <strong>Barang:</strong> ${sale.items.map(item => `${item.name} x${item.quantity}`).join(', ')}
-            `,
-            icon: 'info',
-        });
-    }
+function viewSaleDetails(saleId) {
+    const sale = salesHistory.find(sale => sale.no === saleId);
+    
+    // Membuat baris tabel untuk setiap barang
+    const itemsTable = sale.items.map(item => {
+        return `<tr><td>${item.name}</td><td>${item.quantity}</td><td>Rp ${item.price.toLocaleString()}</td></tr>`;
+    }).join('');
+
+    // Menampilkan popup dengan tabel
+    Swal.fire({
+        title: `Detail Transaksi ${sale.no}`,
+        html: `
+            <strong>Tanggal:</strong> ${sale.date}<br>
+            <strong>Total Harga:</strong> Rp ${sale.totalPrice.toLocaleString()}<br><br>
+            <table style="width:100%; border-collapse: collapse; margin-top: 10px;">
+                <thead>
+                    <tr>
+                        <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Nama Barang</th>
+                        <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Qty</th>
+                        <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Harga</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${itemsTable}
+                </tbody>
+            </table>
+        `,
+        icon: 'info',
+        showConfirmButton: false, // Menghilangkan tombol "OK"
+    });
+}
+
 
     // Fungsi untuk menghapus transaksi dari riwayat dengan SweetAlert
     function deleteSale(saleId) {
@@ -608,6 +856,66 @@ button:disabled {
             }
         });
     }
+
+function searchProduct() {
+    const searchValue = document.getElementById('searchInput').value.toLowerCase(); // Ambil nilai input dan ubah ke huruf kecil
+    const productList = document.getElementById('productList');
+    productList.innerHTML = ''; // Kosongkan daftar sebelum menambahkan hasil pencarian
+
+    // Filter barang berdasarkan nama yang sesuai
+    const filteredProducts = products.filter(product => 
+        product.name.toLowerCase().includes(searchValue)
+    );
+
+    // Tampilkan hasil pencarian
+    if (filteredProducts.length > 0) {
+        productList.innerHTML = filteredProducts.map((product, index) => `
+            <li class="product-item">
+                <span class="product-name">${product.name}</span>
+                <span class="price">Rp ${product.price.toLocaleString()}</span>
+                <div class="action-btns">
+                    <button class="edit" onclick="editProduct(${index})">Edit</button>
+                    <button class="delete" onclick="deleteProduct(${index})">Hapus</button>
+                </div>
+            </li>
+        `).join('');
+    } else {
+        productList.innerHTML = '<li class="product-item">Barang tidak ditemukan.</li>';
+    }
+}
+
+
+function searchProductHome() {
+    const searchValue = document.getElementById('searchHomeInput').value.toLowerCase(); // Ambil nilai input
+    const salesList = document.getElementById('salesList');
+    salesList.innerHTML = ''; // Kosongkan daftar sebelum menambahkan hasil pencarian
+
+    // Filter barang berdasarkan nama
+    const filteredProducts = products.filter(product =>
+        product.name.toLowerCase().includes(searchValue)
+    );
+
+    // Tampilkan hasil pencarian di homepage
+    filteredProducts.forEach(product => {
+        const productItem = `
+            <li class="product-item">
+                <h3>${product.name}</h3>
+                <div>
+                    <span class="price">Rp ${product.price.toLocaleString()}</span>
+                    <button onclick="addToCart('${product.name}', ${product.price})">Tambah</button>
+                </div>
+            </li>
+        `;
+        salesList.innerHTML += productItem;
+    });
+
+    // Jika tidak ada hasil pencarian
+    if (filteredProducts.length === 0) {
+        salesList.innerHTML = '<li class="product-item">Barang tidak ditemukan.</li>';
+    }
+}
+
+
 </script>
 
 </body>
